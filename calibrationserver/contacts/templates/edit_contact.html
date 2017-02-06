@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block display %}
+
+<link rel="stylesheet" href="https://www.dropbox.com/s/ig24qx1s3729d67/addjob.css?dl=1" media="all" />
+
+<h1>Add Job</h1>
+
+<form action="{% url "contacts-new" %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <ul class="input_list">
+    <li class="input_list_item"><div><h3 class="input_list_header">File:</h3>
+    {{form.cal_file}}</div></li>
+    <li class="input_list_item"><div><h3 class="input_list_header">Calibration variable:</h3>
+    {{form.calibration}}</div></li>
+    <!--<li class="input_list_item"><div><h3 class="input_list_header">Comments:</h3>
+    {{form.comments}}</div></li>-->
+    <li class="input_list_item"><div><h3 class="input_list_header">Type:</h3>
+    {{form.configuration}}</div></li>
+  </ul>
+  <div class="seperator"><div class="seperator2"></div>
+  <button id="save_contact" type="submit" value="Queue"><a>Queue</a></button>
+  <!--<a id="back_to_list" href="{% url "contacts-list" %}">Back to list</a>-->
+  </div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block display %}
+
+<link rel="stylesheet" href="https://www.dropbox.com/s/0eot9y36sjzm5oy/register.css?dl=1" media="all" />
+
+<h1>Register</h1>
+
+<form method="post" action=".">
+  {% csrf_token %}
+
+  <ul class="input_list">
+    <li class="input_list_item"><div><h3 class="input_list_header">Username:</h3>
+    {{form.username}}</div></li>
+    <li class="input_list_item"><div><h3 class="input_list_header">Email Address:</h3>
+    {{form.email}}</div></li>
+    <li class="input_list_item"><div><h3 class="input_list_header">Password:</h3>
+    {{form.password1}}</div></li>
+    <li class="input_list_item"><div><h3 class="input_list_header">Confirm password:</h3>
+    {{form.password2}}</div></li>
+    <li class="input_list_item"><div><h3 class="input_list_header">Captcha:</h3>
+    {{form.captcha}}</div></li>
+  </ul>
+<div class="seperator"><div class="seperator2"></div>
+  <button id="submit_button"><a type="submit" value="{% trans 'Submit' %}">Submit</a></button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block display %}
+
+<h1>Login</h1>
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table style="margin-top: 55px; margin-left: auto; margin-right: auto; margin-bottom: auto;">
+<tr style="height: 35px;">
+    <td style="height: 35px; width: 100px;">{{ form.username.label_tag }}</td>
+    <td style="height: 35px;">{{ form.username }}</td>
+</tr>
+<tr style="height: 35px;">
+    <td style="height: 35px; width: 100px;">{{ form.password.label_tag }}</td>
+    <td style="height: 35px;">{{ form.password }}</td>
+</tr>
+<tr style="height: 45px;">
+    <td><p style="height: 5px; width: 100px;"></p></td>
+    <td><button type="submit" value="Login" style="float: right;"><a>Login</a></button></td>
+</tr>
+</table>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

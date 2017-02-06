@@ -1,0 +1,126 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Adams Advice</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="shortcut icon" href="https://www.waikato.ac.nz/favicon.ico" />
+<link rel="license" href="http://www.waikato.ac.nz/copyright.shtml" />
+   <link rel='stylesheet' href='https://www.waikato.ac.nz/css/screen.r2.7.css' media='screen, projection' />
+
+
+     <link rel="stylesheet" type="text/css" href="http://cms.its.waikato.ac.nz/_designs/responsivedesign/responsive/stnd/data-mining/data-mining.css" media="all" />
+
+<!--[if IE]>
+   <link rel="stylesheet" href="https://www.waikato.ac.nz/css/ie.r1.css" media="screen, projection" />
+<![endif]-->
+<link rel="stylesheet" href="https://www.waikato.ac.nz/css/print.r2.4.css" media="print" />
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+ <script src='https://www.waikato.ac.nz/include/js/html5shiv.r0.js'></script>
+ <script src='https://www.waikato.ac.nz/include/js/respond.min.r0.js'></script>
+ <link href="https://www.waikato.ac.nz/include/js/respond/respond-proxy.html" id='respond-proxy' rel='respond-proxy' />
+ <link href="/_media/respond.js/respond.proxy.gif" id='respond-redirect' rel='respond-redirect' />
+ <script src="/_media/respond.js/respond.proxy.js"></script>
+<![endif]-->
+
+<script src='https://www.waikato.ac.nz/include/js/jquery.r0.js'></script>
+<script src='https://www.waikato.ac.nz/include/js/bootstrap.min.r1.js'></script>
+
+</head>
+<body>
+<header>
+ <div id="headerContent" class='container'>
+   <div class='row'>
+   <div id="crest" class="col-xs-12 col-sm-5 col-md-4 col-lg-3"><a href='http://www.waikato.ac.nz/'><img src='https://www.waikato.ac.nz/images/TemplateImages/coat-of-arms.png' alt='The University of Waikato - Te Whare Wānanga o Waikato' class='noprint'><img src='https://www.waikato.ac.nz/images/coa.gif' alt='' class='printerOnly'></a></div>
+   <div id='siteName' class="col-xs-12 col-sm-4 col-md-5 col-lg-7">
+     <img src="https://www.dropbox.com/s/l91ekonsp62s1ef/logo.png?dl=1" width="300" height="80" alt="" title="datamining" />      <span class='siteName'>Data Mining <span></span></span>
+   </div>
+   <!-- /searchForm -->
+   </div>
+ </div>
+ <!-- /headerContent -->
+</header>
+<div class='container'>
+<div class='row' id='crumbs'>
+<!-- Spacer -->
+</div>
+</div>
+<div class="container page-content">
+<div class="row">
+ <div role="navigation" id="sideMenu" class="col-md-2">
+   <h3>Section Contents</h3>
+   <div class="sectionContents">
+
+          <ul class="primarySection">
+            <li class="NavTitle"><a href="http://www.data-mining.co.nz/data-mining">
+            Home            </a> </li>
+
+          </ul>
+
+                             <ul class="primarySection">
+         <li class="NavTitle"><a href="http://www.data-mining.co.nz/data-mining">
+           Data Mining            </a> </li>
+
+         </ul>
+                 <ul class="secondarySection">
+         <li class="NavTitle"><a href="{% url "contacts-list" %}">
+           View Jobs            </a> </li>
+
+         </ul>
+                 <ul class="secondarySection">
+         <li class="NavTitle"><a href="{% url "contacts-new" %}">
+           Add Job            </a> </li>
+
+         </ul>
+          <!--       <ul class="secondarySection">
+         <li class="NavTitle"><a href="http://www.data-mining.co.nz/team">
+           About            </a> </li>
+
+         </ul>
+                 <ul class="secondarySection">
+         <li class="NavTitle"><a href="http://www.data-mining.co.nz/contact-us">
+           Contact Us            </a> </li>
+
+         </ul>-->
+   </div>
+ </div>
+ <div id="content" class="col-sm-9 col-md-8">
+
+{% block display %}
+{% endblock %}
+
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+ </div>
+ <div id='seeAlso' class="col-sm-3 col-md-2">
+   <div id="new_div_211384">
+     <div>
+       <img src="https://www.dropbox.com/s/be44lkhofp2m5dm/user.svg?dl=1" width="40" height="40" style="display: block; margin: 0 auto;"></img>
+       <h3 style="position:relative; top:-15px; text-align: center; font-family: Arial;">{{ user }}</h3>
+     </div>
+     {% if user.is_anonymous %}
+     <ul class="secondarySection">
+     <li class="NavTitle"><a href="{% url 'auth_login' %}">Login</a></li>
+   </ul>
+     <ul class="secondarySection">
+     <li class="NavTitle"><a href="{% url 'registration_register' %}">Register</a></li>
+   </ul>
+     {% else %}
+     <ul class="secondarySection">
+     <li class="NavTitle"><a href="{% url 'auth_logout' %}">logout</a></li>
+   </ul>
+     {% endif %}
+   </div>
+ </div>
+</div>
+</div>
+
+</body>
+</html>
