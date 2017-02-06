@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import EmailMessage
 from django.forms import ModelForm
 
-from contacts.models import Contact
+from advicejobs.models import AdviceJob
 
 from registration.forms import RegistrationForm
 from captcha.fields import CaptchaField
@@ -14,23 +14,23 @@ from captcha.fields import CaptchaField
 import django_tables2 as tables
 
 fs = FileSystemStorage(location='/jobs/processes')
-configuration_choices = (
+type_choices = (
     ('foss', 'FOSS'),
     ('multispec', 'Multispec'),
     ('csv', 'CSV'),
 )
 
 class UploadFileForm(forms.Form):
-    model = Contact
+    model = AdviceJob
     title = forms.CharField(max_length=50)
     file = forms.FileField()
 
-class CreateContactForm(forms.ModelForm):
+class CreateAdviceJobForm(forms.ModelForm):
 
     cal_file = forms.FileField(required = True)
     calibration = forms.CharField(max_length = 255, required = True)
     #comments = forms.CharField(max_length = 255, initial="")
-    configuration = forms.ChoiceField(choices=configuration_choices)
+    type = forms.ChoiceField(choices=type_choices)
 
     # Adds a HTML class tag
     cal_file.widget.attrs.update({'class' : 'file_field'})
@@ -38,8 +38,8 @@ class CreateContactForm(forms.ModelForm):
     #comments.widget.attrs.update({'class' : 'comment_field'})
 
     class Meta:
-        model = Contact
-        fields = ('cal_file', 'calibration', 'configuration')
+        model = AdviceJob
+        fields = ('cal_file', 'calibration', 'type')
 
 class CustomRegistrationForm(RegistrationForm):
     captcha = CaptchaField()
@@ -48,10 +48,14 @@ class CustomRegistrationForm(RegistrationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-class ContactTable(tables.Table):
-
+class AdviceJobTable(tables.Table):
+    selection = tables.CheckBoxColumn(accessor='pk', attrs = { "th__input": 
+                                        {"onclick": "toggle(this)"}},
+                                        orderable=False)
+    
     class Meta:
-        model = Contact
+        model = AdviceJob
+        
         exclude = ('cal_file', 'owner')
         sequence = ('processed', 'id', 'timestamp', 'filename', 'calibration', 'comments')
         attrs = {"class": "paleblue"

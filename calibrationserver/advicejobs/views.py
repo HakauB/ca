@@ -1,8 +1,8 @@
 import os
 import threading
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView
-from django.http import HttpResponseRedirect
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -12,14 +12,15 @@ from django.core.files.base import ContentFile
 
 from django.views.generic import TemplateView
 
+import traceback
 # Create your views here.
-from contacts.forms import UploadFileForm, CreateContactForm, ContactTable
-from contacts.models import Contact
+from advicejobs.forms import UploadFileForm, CreateAdviceJobForm, AdviceJobTable
+from advicejobs.models import AdviceJob
 
 from django_tables2 import RequestConfig
 import django_tables2 as tables
 
-class ContactOwnerMixin(object):
+class AdviceJobOwnerMixin(object):
 
     # Check user is owner of items requested
     def get_object(self, queryset=None):
@@ -46,31 +47,31 @@ class LoggedInMixin(object):
     def dispatch(self, *args, **kwargs):
         return super(LoggedInMixin, self).dispatch(*args, **kwargs)
 
-class ListContactView(LoggedInMixin, ListView):
+class ListAdviceJobView(LoggedInMixin, ListView):
 
     template_name = 'contact_list.html'
-    model = Contact
+    model = AdviceJob
 
     object_list = None
 
     # Want to only show items belonging to user
     def get_queryset(self):
-        return Contact.objects.filter(owner=self.request.user)
+        return AdviceJob.objects.filter(owner=self.request.user)
 
     def get(self, request, *args, **kwargs):
-        object_list = Contact.objects.filter(owner = self.request.user)
-        data = Contact.objects.filter(owner=self.request.user)
-        table = ContactTable(Contact.objects.filter(owner = request.user), order_by='-id')
+        object_list = AdviceJob.objects.filter(owner = self.request.user)
+        data = AdviceJob.objects.filter(owner=self.request.user)
+        table = AdviceJobTable(AdviceJob.objects.filter(owner = request.user), order_by='-id')
         RequestConfig(request).configure(table)
         context = self.get_context_data(**kwargs)
         context['table'] = table
         return self.render_to_response(context)
 
-class CreateContactView(LoggedInMixin, ContactOwnerMixin, CreateView):
+class CreateAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, CreateView):
 
-    model = Contact
+    model = AdviceJob
     template_name = 'edit_contact.html'
-    form_class = CreateContactForm
+    form_class = CreateAdviceJobForm
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -92,11 +93,37 @@ class CreateContactView(LoggedInMixin, ContactOwnerMixin, CreateView):
     def get_success_url(self):
         return reverse('contacts-list')
 
-class UpdateContactView(LoggedInMixin, ContactOwnerMixin, UpdateView):
+class UpdateAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, UpdateView):
 
-    model = Contact
+    model = AdviceJob
     template_name = 'edit_contact.html'
     fields = '__all__'
 
     def get_success_url(self):
         return reverse('contacts-list')
+
+#class DeleteAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, DeleteView):
+#    
+#    model = AdviceJob
+#    def get_queryset(self):
+#        pks = getlist("selection")
+#        selected_objects = AdviceJob.objects.filter(pk__in=pks)
+#        #qs = super(DeleteAdviceJobView, self).get_queryset()
+#        return pks.filter(owner=self.request.user)
+
+def AdviceJobDelete(request):
+    if request.method == "POST":
+        try:
+            pks = request.POST.getlist("selection")
+            selected_objects = AdviceJob.objects.filter(pk__in=pks)
+            # do something with selected_objects
+            selected_objects.delete()
+            for item in pks:
+                try:
+                    os.remove('jobs/'+item)
+                except OSError:
+                    pass
+            return HttpResponseRedirect("/")
+        except:
+            traceback.print_exc()
+            return HttpResponseRedirect("/")

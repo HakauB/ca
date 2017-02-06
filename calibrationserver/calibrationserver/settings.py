@@ -25,7 +25,7 @@ SECRET_KEY = 'z!4o(onjhj543h+0mhrycq5l&qi9c09p595u0i$*i2!20^9zm('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['calibra-hakaub.c9users.io',]
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'contacts',
+    'advicejobs',
     'captcha',
     'django_tables2',
 ]
@@ -84,7 +84,7 @@ TEMPLATES = [
             # Always use forward slashes, even on Windows.
             # Don't forget to use absolute paths, not relative paths.
             'calibrationserver/templates',
-            'contacts/templates'
+            'advicejobs/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
