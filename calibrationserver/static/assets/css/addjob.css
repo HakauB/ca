@@ -1,0 +1,49 @@
+.input_list {
+    height: 215px;
+    list-style-type: none;
+    margin: 0 auto;
+    width: auto;
+}
+ 
+.input_list_item {
+    height: 50px;
+}
+ 
+.input_list_header {
+    font-family: Arial;
+}
+ 
+.seperator {
+    height: 80px;
+}
+ 
+.seperator2 {
+    height: 30px;
+}
+ 
+.file_field {
+    margin-left: 25px;
+}
+ 
+.cal_field {
+    margin-left: 25px;
+}
+ 
+.comment_field {
+    margin-left: 25px;
+}
+ 
+#back_to_list {
+    float: right;
+}
+ 
+#save_contact {
+    margin-left: 158px;
+    margin-bottom: 50px;
+    width: auto;
+    height: 2em;
+}
+ 
+#id_type {
+    margin-left:25px;
+}

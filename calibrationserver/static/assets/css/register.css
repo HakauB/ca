@@ -1,0 +1,42 @@
+#id_captcha_1 {
+    float: left;
+}
+ 
+.captcha {
+    margin-left: 25px;
+}
+.input_list {
+    height: 360px;
+    list-style-type: none;
+    margin: 0 auto;
+    width: auto;
+}
+ 
+.input_list_item {
+    height: 50px;
+}
+ 
+.input_list_header {
+    font-family: Arial;
+}
+ 
+.seperator {
+    height: 50px;
+}
+ 
+input {
+    margin-left: 25px;
+}
+ 
+#submit_button {
+    margin-left: 158px;
+    margin-bottom: 50px;
+    width: auto;
+    height: 2em;
+}
+ 
+.helptext {
+    width: 200px;
+    height: auto;
+    float: right;
+}

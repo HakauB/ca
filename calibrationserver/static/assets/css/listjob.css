@@ -1,0 +1,11 @@
+.pagination {
+    display: none;
+}
+ 
+.table-container {
+    width: 100%;
+}
+ 
+.orderable.processed {
+    width: 75px;
+}

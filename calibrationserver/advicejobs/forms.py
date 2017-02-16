@@ -60,3 +60,6 @@ class AdviceJobTable(tables.Table):
         sequence = ('processed', 'id', 'timestamp', 'filename', 'calibration', 'comments')
         attrs = {"class": "paleblue"
                 ,"style": "width: 100%;"}
+
+class PasswordResetRequestForm(forms.Form):
+    email_or_username = forms.CharField(label=("Email Or Username"), max_length=254)

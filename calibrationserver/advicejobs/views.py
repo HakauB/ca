@@ -10,7 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.core.files.base import ContentFile
 
-from django.views.generic import TemplateView
+from django.views.generic import *
 
 import traceback
 # Create your views here.
@@ -78,6 +78,11 @@ class CreateAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, CreateView):
         obj.owner = self.request.user
         obj.filename = obj.cal_file.name;
         obj.save()
+        #try:
+        print(str(AdviceJob.objects.count()))
+        os.rename('jobs/'+str(AdviceJob.objects.count()), 'jobs/'+str(obj.id))
+        #except:
+        #    pass
 
         # Handles email and configuartion in background as the email check seems to slow it
         def email_worker():
@@ -102,15 +107,6 @@ class UpdateAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, UpdateView):
     def get_success_url(self):
         return reverse('contacts-list')
 
-#class DeleteAdviceJobView(LoggedInMixin, AdviceJobOwnerMixin, DeleteView):
-#    
-#    model = AdviceJob
-#    def get_queryset(self):
-#        pks = getlist("selection")
-#        selected_objects = AdviceJob.objects.filter(pk__in=pks)
-#        #qs = super(DeleteAdviceJobView, self).get_queryset()
-#        return pks.filter(owner=self.request.user)
-
 def AdviceJobDelete(request):
     if request.method == "POST":
         try:
@@ -127,3 +123,4 @@ def AdviceJobDelete(request):
         except:
             traceback.print_exc()
             return HttpResponseRedirect("/")
+            

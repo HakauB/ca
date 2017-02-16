@@ -19,10 +19,11 @@ function toggle(source) {
 
     {% csrf_token %}
 
-<div style="height: 50px; margin-top: 25px;">
-    <a href="{% url 'contacts-new' %}"><button>Add Job</button></a>
-    <input type="submit" style="visibility: hidden; float: right;"><a><button>Remove selected</button></a></input>
-</div>
-    
+
+    <input type="submit" style="display: none;"><a><button>Remove selected</button></a></input>
 </form>
+<div style="height: 30px; margin-top: 10px;">
+    <a href="{% url 'contacts-new' %}"><button>Add Job</button></a>
+    
+</div>
 {% endblock %}

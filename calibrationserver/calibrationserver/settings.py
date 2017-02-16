@@ -25,7 +25,10 @@ SECRET_KEY = 'z!4o(onjhj543h+0mhrycq5l&qi9c09p595u0i$*i2!20^9zm('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['calibra-hakaub.c9users.io',]
+ALLOWED_HOSTS = [
+    'adams-advisord.cms.waikato.ac.nz',
+    #'calibra-hakaub.c9users.io'
+]
 
 
 # Application definition
@@ -46,7 +49,7 @@ INSTALLED_APPS = [
     'django_tables2',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,7 +76,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 ROOT_URLCONF = 'calibrationserver.urls'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/list'
 LOGIN_URL = 'accounts/login/'
 
 TEMPLATES = [
@@ -161,6 +164,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
+#STATIC_ROOT = '/var/www/calibra-hakaub.c9users.io/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
